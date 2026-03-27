@@ -20,7 +20,35 @@ test('TC07 | Show All Products', async ({ page }) => {
 });
 
 
-test('TC08 | click Add to card ', async ({ page }) => {
+test('TC08 | click Add and remove to card Product', async ({ page }) => {
+  // click Product 1
+  await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click()
+  await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('1')
+
+  // click Product 2
+  await page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]').click()
+  await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('2')
+
+  // click Product 3
+  await page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click()
+  await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('3')
   
+  // remove Product 1
+  await page.locator('#remove-sauce-labs-backpack').click()
+  await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('2')
+
+  // remove Product 2
+  await page.locator('#remove-sauce-labs-bike-light').click()
+  await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('1')
+
+  // remove Product 3
+  await page.locator('#remove-sauce-labs-bolt-t-shirt').click()
+  await expect(page.locator('[data-test="shopping-cart-badge"]')).toBeHidden()
+
 });
+
+test('TC09 | Product sort container', async ({ page }) => {
+});
+
+
 
