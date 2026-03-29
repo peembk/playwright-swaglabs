@@ -47,7 +47,38 @@ test('TC08 | click Add and remove to card Product', async ({ page }) => {
 
 });
 
-test('TC09 | Product sort container', async ({ page }) => {
+test('TC09 | Product sort container select az', async ({ page }) => {
+  await page.locator('[data-test="product-sort-container"]').selectOption('az')
+
+  const productNames = await page.locator('[data-test="inventory-item-name"]').allTextContents()
+  const sorted = [...productNames].sort()
+
+  await expect(productNames).toEqual(sorted)
+});
+
+test('TC10 | Product sort container select za', async ({ page }) => {
+  await page.locator('[data-test="product-sort-container"]').selectOption('za')
+
+  const productNames = await page.locator('[data-test="inventory-item-name"]').allTextContents()
+  const sorted = [...productNames].sort().reverse()
+
+  await expect(productNames).toEqual(sorted)
+});
+
+test('TC11 | Product sort container select Price (low to high)', async ({ page }) => {
+  await page.locator('[data-test="product-sort-container"]').selectOption('lohi')
+  
+  const itemePrice = await page.locator('[data-test="inventory-item-price"]').allTextContents()
+  console.log("ดึงราคาในหน้า Product มา => " + itemePrice)
+
+  const newItemPrice = itemePrice.map(price => parseFloat(price.replace('$',''))) // price เป็นตัวแปรที่สร้างขึ้นใหม่เพื่อใช้ในการวน array
+  console.log("จะได้ราคาแบบลบ $ และแปลงจาก string เป็น float => " + newItemPrice)
+
+  const sorted = [...newItemPrice].sort((a, b) => a - b) // sort ตัวเลขต้องใช้ concept นี้
+
+  await expect(newItemPrice).toEqual(sorted)
+
+
 });
 
 
