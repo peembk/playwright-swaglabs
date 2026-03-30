@@ -71,15 +71,63 @@ test('TC11 | Product sort container select Price (low to high)', async ({ page }
   const itemePrice = await page.locator('[data-test="inventory-item-price"]').allTextContents()
   console.log("ดึงราคาในหน้า Product มา => " + itemePrice)
 
+  console.log("Check type ที่ดึงมา", typeof(itemePrice[0]))
+
   const newItemPrice = itemePrice.map(price => parseFloat(price.replace('$',''))) // price เป็นตัวแปรที่สร้างขึ้นใหม่เพื่อใช้ในการวน array
   console.log("จะได้ราคาแบบลบ $ และแปลงจาก string เป็น float => " + newItemPrice)
 
-  const sorted = [...newItemPrice].sort((a, b) => a - b) // sort ตัวเลขต้องใช้ concept นี้
+  console.log("Check type ที่ดึงมา", typeof(newItemPrice[0]))
+
+  const sorted = [...newItemPrice].sort((a, b) => a - b) // sort array ตัวเลขต้องใช้ concept นี้
 
   await expect(newItemPrice).toEqual(sorted)
 
 
 });
+
+test('TC12 | Product sort container select Price (high to low)', async ({ page }) => {
+  await page.locator('[data-test="product-sort-container"]').selectOption('hilo')
+  
+  const itemePrice = await page.locator('[data-test="inventory-item-price"]').allTextContents()
+  console.log("ดึงราคาในหน้า Product มา => " + itemePrice)
+
+  console.log("Check type ที่ดึงมา", typeof(itemePrice[0]))
+
+  const newItemPrice = itemePrice.map(price => parseFloat(price.replace('$',''))) // price เป็นตัวแปรที่สร้างขึ้นใหม่เพื่อใช้ในการวน array
+  console.log("จะได้ราคาแบบลบ $ และแปลงจาก string เป็น float => " + newItemPrice)
+
+  console.log("Check type ที่ดึงมา", typeof(newItemPrice[0]))
+
+  const sorted = [...newItemPrice].sort((a, b) => b - a) // sort array ตัวเลขต้องใช้ concept นี้
+
+  await expect(newItemPrice).toEqual(sorted)
+
+});
+
+test('TC13 | Side bar selected click "All Item"' , async({ page }) => {
+  await page.locator('#react-burger-menu-btn').click()
+  await page.locator('#inventory_sidebar_link').click()
+  await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+
+})
+
+test('TC14 | Side bar selected click "All Item" ' , async ({ page }) => {
+  await page.locator('#react-burger-menu-btn').click()
+  await page.locator('#about_sidebar_link').click()
+
+  await expect(page).toHaveURL('https://saucelabs.com/')
+
+})
+
+test('TC15 | Side bar selected click "logout" ' , async ({ page }) => {
+  await page.locator('#react-burger-menu-btn').click()
+  await page.locator('#logout_sidebar_link').click()
+
+  await expect(page).toHaveURL('https://www.saucedemo.com/')
+  await expect(page.locator('#user-name')).toHaveValue('')
+  await expect(page.locator('#password')).toHaveValue('')
+})
+
 
 
 
