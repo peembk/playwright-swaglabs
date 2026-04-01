@@ -9,14 +9,17 @@ export class ProductPage {
     readonly page: Page
     readonly cartLink: Locator
     readonly cartBadge: Locator
+    readonly clicksort: Locator
+    // All product
+    readonly allProduct: any
 
 
     constructor(page : Page) {
         this.page = page
         this.cartLink = page.locator('[data-test="shopping-cart-link"]')
         this.cartBadge = page.locator('[data-test="shopping-cart-badge"]')
-        //this.productList = page.locator('[data-test="inventory-item-sauce-labs-]')
-
+        this.clicksort = page.locator('[data-test="product-sort-container"]')
+        this.allProduct = page.locator('[data-test="inventory-item-name"]').allTextContents()
     }
     // function 
 
@@ -37,7 +40,11 @@ export class ProductPage {
     }
     async goto() {
         await this.page.goto('https://www.saucedemo.com/inventory.html')
-}
+    }
+    
+    async clickSort() {
+        await this.clickSort()
+    }
 
 
 

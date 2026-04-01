@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { ProductPage, products } from '../page/product.page';
 
-test.use({ storageState: './auth/user.json' })
   
 test.describe('Add Remove item',() => {
   let productPage : ProductPage
@@ -22,7 +21,12 @@ test.describe('Add Remove item',() => {
         await productPage.rmvProduct(products.bikeLight)
         await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('1')
       })
+
+      test('TC-008 | Product should correctly sorts items from A to Z', async ({ page }) => {
+      })
 })
+
+
 
 
 
