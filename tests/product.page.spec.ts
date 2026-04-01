@@ -14,7 +14,13 @@ test.describe('Add Remove item',() => {
       test('TC-007 | Adding all available products to the cart and then removing them, verifying that the cart updates correctly', async ({ page }) => {
         // select Product
         await productPage.addProduct(products.backpack)
-        await expect(page
+        await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('1')
+
+        await productPage.addProduct(products.bikeLight)
+        await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('2')
+
+        await productPage.rmvProduct(products.bikeLight)
+        await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('1')
       })
 })
 
