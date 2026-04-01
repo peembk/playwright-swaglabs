@@ -31,7 +31,7 @@ test.describe('login Fail', () => {
     let loginPage : LoginPage
         test.beforeEach(async ({ page }) => {
             loginPage = new LoginPage(page)
-            loginPage.goto()
+            await loginPage.goto()
         })
             test('TC-002 | Should show an error message if log in without a username', async () => {
                 await loginPage.fillUsernamePassword('',validUser[0].password)
