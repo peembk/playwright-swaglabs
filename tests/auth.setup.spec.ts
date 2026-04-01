@@ -6,8 +6,7 @@ setup('login and save seeions', async ({ page }) => {
     await loginPage.goto()
     await loginPage.fillUsernamePassword('standard_user','secret_sauce')
     await loginPage.clickLoginBtn()
-    await loginPage.returnInventortUrl()
-
+    page.waitForURL('**/inventory.html')
     // เก็บ sessions
     await page.context().storageState({
         path: './auth/user.json',
