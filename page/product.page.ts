@@ -1,69 +1,40 @@
 import { Locator, Page } from '@playwright/test'
 
+const products = {
+    backpack: 'backpack',
+    bikeLight: 'bike-light'
+ } as const
+
 export class ProductPage {
+    readonly page: Page
     readonly cartLink: Locator
-    readonly backPackProduct_name: Locator
-    readonly backPackProduct_price: Locator
-    readonly backPackProduct_addBtn: Locator
-    readonly backPackProduct_rmBtn: Locator
-
-    readonly bikeLightProduct_name: Locator
-    readonly bikeLightProduct_price: Locator
-    readonly bikeLightProduct_addBtn: Locator
-    readonly bikeLightProduct_rmBtn: Locator
-
-    // Count Product list'
-    readonly countProductList: Locator
-
-    // cart badge
     readonly cartBadge: Locator
 
 
-
     constructor(page : Page) {
+        this.page = page
         this.cartLink = page.locator('[data-test="shopping-cart-link"]')
-        // Back Pack Product
-        this.backPackProduct_name = page.locator('[data-test="inventory-item-name"]')
-        this.backPackProduct_price = page.locator('[data-test="inventory-item-price"]')
-        this.backPackProduct_addBtn = page.locator('[data-test="add-to-cart-sauce-labs-backpack"]')
-        this.backPackProduct_rmBtn = page.locator('[data-test="remove-sauce-labs-backpack"]')
-
-        // Bike light Product
-        this.bikeLightProduct_name = page.locator('[data-test="inventory-item-name"]')
-        this.bikeLightProduct_price = page.locator('[data-test="inventory-item-price"]')
-        this.bikeLightProduct_addBtn = page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]')
-        this.bikeLightProduct_rmBtn = page.locator('[data-test="remove-sauce-labs-bike-light"]')
-
-        // Count Product list'
-        this.countProductList = page.locator('[data-test="inventory-item"]')
-
-        // number of cart
         this.cartBadge = page.locator('[data-test="shopping-cart-badge"]')
+        //this.productList = page.locator('[data-test="inventory-item-sauce-labs-]')
 
     }
     // function 
-   async clickCartLink() {
-        await this.cartLink.click()
-    }
-    
-    async clickAddBackpack() {
-        await this.backPackProduct_addBtn.click()
+
+    private addBtn(productId : string) : Locator {
+        return this.page.locator(`[data-test="add-to-cart-${productId}"]`)
     }
 
-    async clickAddBikelight() {
-        await this.bikeLightProduct_addBtn.click()
+    private revBtn(productId : string) : Locator {
+        return this.page.locator(`[data-test="remove-sauce-labs-${productId}"]`)
     }
 
-    async clickRemoveBackpack() {
-        await this.backPackProduct_rmBtn.click()
+    async addProduct(productId: string) {
+        await this.addBtn(productId).click()
     }
 
-    async clickRemoveBikelight() {
-        await this.bikeLightProduct_rmBtn.click()
+    async rmvProduct(productId: string) {
+        await this.revBtn(productId).click()
     }
-
-
-
 
 
 
