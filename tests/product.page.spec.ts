@@ -35,6 +35,16 @@ test.describe('Add Remove item',() => {
         const sorted = [...arrproduct].sort().reverse()
         await expect(arrproduct).toEqual(sorted)
       })
+
+        test('TC-010 | Product should correctly sorts items from price low to high' , async ({ page }) => {
+        await productPage.SortName(sort.lh)
+        const arrprice = await page.locator('[data-test="inventory-item-price"]').allTextContents()
+        const parseprice = arrprice.map(p => parseFloat(p.replace('$','')))
+        const sorted = [...parseprice].sort((a,b) => a-b)
+        await expect(parseprice).toEqual(sorted)
+        
+      })
+
 })
 
 

@@ -7,7 +7,9 @@ export const products = {
 
  export const sort = {
     az: 'az',
-    za: 'za'
+    za: 'za',
+    lh: 'lohi',
+    hl: 'hilo'
  } as const
 
 
@@ -58,6 +60,9 @@ export class ProductPage {
     async SortName(productId : string) {
         await this.optionSortName(productId)
     }
+
+
+
 
 
 
