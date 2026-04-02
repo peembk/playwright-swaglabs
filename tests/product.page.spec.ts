@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { ProductPage, products } from '../page/product.page';
+import { test, expect, Locator } from '@playwright/test';
+import { ProductPage, sort, products } from '../page/product.page';
 
   
 test.describe('Add Remove item',() => {
@@ -23,6 +23,10 @@ test.describe('Add Remove item',() => {
       })
 
       test('TC-008 | Product should correctly sorts items from A to Z', async ({ page }) => {
+        await productPage.SortName(sort.az)
+        const arrproduct = await page.locator('[data-test="inventory-item"]').allTextContents()
+        const sorted = [...arrproduct].sort()
+        await expect(arrproduct).toEqual(sorted)
       })
 })
 

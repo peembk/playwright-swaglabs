@@ -5,21 +5,25 @@ export const products = {
     bikeLight: 'bike-light'
  } as const
 
+ export const sort = {
+    az: 'az',
+    za: 'za'
+ } as const
+
+
 export class ProductPage {
     readonly page: Page
     readonly cartLink: Locator
     readonly cartBadge: Locator
-    readonly clicksort: Locator
+    readonly sortProduct: Locator
     // All product
-    readonly allProduct: any
 
 
     constructor(page : Page) {
         this.page = page
         this.cartLink = page.locator('[data-test="shopping-cart-link"]')
         this.cartBadge = page.locator('[data-test="shopping-cart-badge"]')
-        this.clicksort = page.locator('[data-test="product-sort-container"]')
-        this.allProduct = page.locator('[data-test="inventory-item-name"]').allTextContents()
+        this.sortProduct = page.locator('[data-test="product-sort-container"]')
     }
     // function 
 
@@ -46,6 +50,14 @@ export class ProductPage {
         await this.clickSort()
     }
 
+    // select sortname
+    private optionSortName(productId : string) {
+        return this.sortProduct.selectOption(`${productId}`)
+    } 
+
+    async SortName(productId : string) {
+        await this.optionSortName(productId)
+    }
 
 
 
