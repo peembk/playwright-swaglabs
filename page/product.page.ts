@@ -20,7 +20,8 @@ export class ProductPage {
     readonly sortProduct: Locator
     readonly displayProductSort: Locator
     readonly displayPriceSort: Locator
-  
+    readonly clickCartIcon: Locator
+    
 
 
     constructor(page : Page) {
@@ -32,6 +33,7 @@ export class ProductPage {
         this.displayProductSort = page.locator('[data-test="inventory-item"]')
         // display product on page
         this.displayPriceSort = page.locator('[data-test="inventory-item-price"]')
+        this.clickCartIcon = page.locator('[data-test="shopping-cart-link"]')
 
     }
 
@@ -68,6 +70,18 @@ export class ProductPage {
     async SortName(productId : string) {
         await this.optionSortName(productId)
     }
+
+    async clickCart() {
+        await this.clickCartIcon.click()
+    }
+
+    async gotoCartPage() {
+        await this.page.goto('https://www.saucedemo.com/cart.html')
+    }
+
+
+
+
 
 
 
