@@ -18,7 +18,9 @@ export class ProductPage {
     readonly cartLink: Locator
     readonly cartBadge: Locator
     readonly sortProduct: Locator
-    // All product
+    readonly displayProductSort: Locator
+    readonly displayPriceSort: Locator
+  
 
 
     constructor(page : Page) {
@@ -26,8 +28,14 @@ export class ProductPage {
         this.cartLink = page.locator('[data-test="shopping-cart-link"]')
         this.cartBadge = page.locator('[data-test="shopping-cart-badge"]')
         this.sortProduct = page.locator('[data-test="product-sort-container"]')
+        // display product on page
+        this.displayProductSort = page.locator('[data-test="inventory-item"]')
+        // display product on page
+        this.displayPriceSort = page.locator('[data-test="inventory-item-price"]')
+
     }
-    // function 
+
+
 
     private addBtn(productId : string) : Locator {
         return this.page.locator(`[data-test="add-to-cart-sauce-labs-${productId}"]`)
