@@ -28,6 +28,13 @@ test.describe('Add Remove item',() => {
         const sorted = [...arrproduct].sort()
         await expect(arrproduct).toEqual(sorted)
       })
+
+      test('TC-009 | Product should correctly sorts items from Z to A' , async ({ page }) => {
+        await productPage.SortName(sort.za)
+        const arrproduct = await page.locator('[data-test="inventory-item"]').allTextContents()
+        const sorted = [...arrproduct].sort().reverse()
+        await expect(arrproduct).toEqual(sorted)
+      })
 })
 
 
