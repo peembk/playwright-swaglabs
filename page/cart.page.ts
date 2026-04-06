@@ -40,4 +40,12 @@ export class CartPage {
         await this.page.goto('https://www.saucedemo.com/checkout-step-one.html')
     }
 
+    async currentPage() {
+        await this.page.goto('https://www.saucedemo.com/cart.html')
+    }
+
+    async getNumbrtofCart() {
+        return this.cartBadge.innerText()
+    }
+
 }
