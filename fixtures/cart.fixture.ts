@@ -21,7 +21,7 @@ export const test = base.extend<CartFixture>({
         const name = await productCards.nth(i).textContent() ?? ''     // เอาชื่อ name ออกมา
         const price = await productPrices.nth(i).textContent() ?? ''   // เอา price ออกมา
 
-        await page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').nth(i).click()  // click
+        await page.locator('[data-test^="add-to-cart"]').nth(i).click()  // click
         addedProduct.push({ name, price })
       }
 
